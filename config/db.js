@@ -3,15 +3,24 @@ const mongoose = require('mongoose');
 const connectDB = async () => {
   const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/aspire_mediatech';
 
+  if (uri.includes('<db_password>') || uri.includes('<password>')) {
+    console.warn(`=======================================================`);
+    console.warn(` ⚠️ MONGODB_URI Warning:`);
+    console.warn(` Connection string contains placeholder '<db_password>'.`);
+    console.warn(` Please replace '<db_password>' with your actual MongoDB Atlas password in backend/.env!`);
+    console.warn(` Falling back to local file storage until password is provided.`);
+    console.warn(`=======================================================`);
+    return false;
+  }
+
   try {
     const conn = await mongoose.connect(uri, {
-      serverSelectionTimeoutMS: 4000 // Quick timeout if MongoDB is offline locally
+      serverSelectionTimeoutMS: 5000
     });
     console.log(`=======================================================`);
     console.log(` MongoDB Connected Successfully!`);
     console.log(` Host: ${conn.connection.host}`);
     console.log(` Database: ${conn.connection.name}`);
-    console.log(` URI: ${uri}`);
     console.log(`=======================================================`);
     return true;
   } catch (error) {
@@ -26,4 +35,3 @@ const connectDB = async () => {
 };
 
 module.exports = connectDB;
-
