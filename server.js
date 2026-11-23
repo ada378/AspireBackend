@@ -61,7 +61,7 @@ app.get('/api/health', (req, res) => {
     database: dbStatus,
     company: 'Aspire MediaTech Solutions',
     tagline: 'INNOVATE OPTIMIZE GROW',
-    headquarters: 'Felix Square, Sushant Golf City, Lucknow',
+    headquarters: '1st Floor, 203 A, Felix Square, Sushant Golf City, Ansal API, Near Lulu Mall, Lucknow, Uttar Pradesh 226030',
     timestamp: new Date().toISOString()
   });
 });
